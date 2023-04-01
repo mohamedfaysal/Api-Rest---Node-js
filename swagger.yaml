@@ -1,0 +1,111 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: User Management REST API
+  description: This API has been developed with Node.js, Express, MongoDB, Mongoose and Swagger technologies. It allows to manipulate (add, read, modify, delete) user data.
+  contact:
+    email: faysalyameogo1@gmail.com
+  license: 
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+  - url: http://localhost:3000
+    description: My local server
+
+paths:
+  /api/users:
+    get:
+      summary: Get all users.
+      description: allows to retrieve all users registered in the database.
+      responses:
+        200:
+          description: Success
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+  /api/users/create:
+    post:
+      summary: Create a new user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        200:
+          description: Success
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+
+  /api/users/{id}:
+    get:
+      summary: Get a user.
+      description: Retrieves a user by his ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Success
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+  /api/users/update/{id}:
+    put:
+      summary: Modify a user.
+      description: Retrieves a user by his ID and modifies him
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Success
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+  /api/users/delete/{id}:
+    delete:
+      summary: Delete a user.
+      description: Retrieves a user by his ID and deletes him
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Success
+          content: 
+            text/plain:
+              schema:
+                type: string
+                example: Deletion successfully completed
+components: 
+  schemas:
+    User:
+      type: object
+      properties:
+        firstname:
+          type: string
+        lastname:
+          type: string
+        email:
+          type: string
+      required:
+        - firstname
+        - email
+      
